@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Ridho Fathur Rohman</h1>
+    <h2>Hasil Tes : <span id="test"></span></h2>
+
+    <script>
+        const test = document.getElementById('test');
+
+        //callback
+        const display = (data, callback) => {
+            setTimeout(() => {
+                test.innerHTML = data;
+                callback(data)
+            },1000)
+        }
+
+        display("Ini Callback", (data) => {
+            console.log(data);
+        })
+
+        //promise
+        const displayPromise = new Promise( (resolve, reject) => {
+            let status = true
+            if(status){
+                setTimeout(() => {
+                    resolve("Ini Promise");
+                }, 3000)
+            }else{
+                reject("Error");
+            }
+        })
+
+        displayPromise.then((data) => {
+            console.log(data);
+            test.innerHTML = data;
+        }).catch((err) => {
+            console.log(err);
+        })
+
+        //async await
+        const displayAsync = async () => {
+            let data = await displayPromise;
+            let text = "Ini Async";
+            setTimeout(() =>{
+                console.log(data, " Async");
+                test.innerHTML = text;
+            }, 2000)
+        }
+
+        displayAsync();
+    </script>
+</body>
+
+</html>
